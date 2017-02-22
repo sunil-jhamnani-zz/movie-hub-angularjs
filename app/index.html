@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kartrocket</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../node_modules/angular/angular.min.js"></script>
+    <script src="../node_modules/angular-route/angular-route.min.js"></script>
+    <script src="../node_modules/angular-resource/angular-resource.min.js"></script>
+    <script src="../node_modules/sprintf-js/dist/sprintf.min.js"></script>
+    <script src="../node_modules/sprintf-js/dist/angular-sprintf.min.js"></script>
+    <script src="app.js"></script>
+    <script src="constants/configuration.js"></script>
+    <script src="controller/HomeController.js"></script>
+</head>
+<body ng-app="ngOMDBSearch">
+    <header>
+        <div class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <h1>Movies Hub</h1>
+                </div>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <nav class="navbar navbar-inverse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home<span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">Favorites</a></li>
+                    <li><a href="#">Recently viewed</a></li>
+                </ul>
+                </nav>
+            </div><!-- /.navbar-collapse -->
+        </div>
+    </header>
+    <section>
+        <div ng-view></div>
+    </section>
+    <footer>
+        <div class="text-center">
+            <p>Movies Hub by <a href="https://github.com/sunil-jhamnani" target="_blank">Sunil
+                Jhamnani</a></p>
+        </div>
+    </footer>
+</body>
+</html>

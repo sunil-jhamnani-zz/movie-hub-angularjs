@@ -1,0 +1,18 @@
+Build an angular application and host it in a new public repo in you github.
+
+Angular application will have 4 main views -
+ - One that lists all the movies initially
+    - this page will have a search box to filter through more movies (need ui routes here)
+ - Details view of the that movie (show the poster, ratings, plots, cast etc.) - and set as favourite
+ - Favorites page - to list all favourites
+ - Recently viewed movies - can make use of session storage
+
+Make use of this open api - https://www.omdbapi.com/
+as the content you get from this API is paginated, it'll be a plus if you can provide something for the same in your app.
+
+Will be evaluated on your code structure and code quality.
+More modular the code the better.
+
+Use of components over directives will greatly appreciated.
+
+Make use any task manager of your choice (grunt, gulp, webpack)
