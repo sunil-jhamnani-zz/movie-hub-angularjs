@@ -14,9 +14,11 @@
     angular.module('ngOMDBSearch', [
         //3rd party modules
         'ngRoute',
-        'sprintf'
+        'sprintf',
+        'ui.bootstrap',
 
         //our modules
+        'ngOMDBSearchCore'
     ]);
 }());
 
@@ -29,7 +31,7 @@
      * @param $routeProvider
      * @param Configuration
      */
-    function config($routeProvider, Configuration) {
+    function config($routeProvider, Configuration, OmdbHttpFactoryProvider) {
         $routeProvider
             .when('/', {
                 templateUrl: 'views/home.html',
@@ -42,11 +44,16 @@
             .otherwise({
                 redirectTo: '/'
             });
+
+        OmdbHttpFactoryProvider.config({
+            baseUrl: Configuration.API_URL
+        })
     }
     var app = angular.module('ngOMDBSearch'),
         requires = [
             '$routeProvider',
             'Configuration',
+            'ngOMDBSearchCore.factories.OmdbHttpFactoryProvider',
             config
         ];
     app.config(requires);

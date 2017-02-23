@@ -12,9 +12,16 @@
     <script src="../node_modules/angular-resource/angular-resource.min.js"></script>
     <script src="../node_modules/sprintf-js/dist/sprintf.min.js"></script>
     <script src="../node_modules/sprintf-js/dist/angular-sprintf.min.js"></script>
+    <script src="../node_modules/angular-bootstrap-npm/dist/angular-bootstrap-tpls.min.js"></script>
     <script src="app.js"></script>
     <script src="constants/configuration.js"></script>
-    <script src="controller/HomeController.js"></script>
+    <script src="controllers/HomeController.js"></script>
+    <script src="controllers/DetailedViewController.js"></script>
+    <script src="components/movieList.js"></script>
+
+    <!--module: ngOMDBSearchCore-->
+    <script src="modules/ngOMDBSearchCore/ngOMDBSearchCore.js"></script>
+    <script src="modules/ngOMDBSearchCore/factories/OmdbHttpFactory.js"></script>
 </head>
 <body ng-app="ngOMDBSearch">
     <header>

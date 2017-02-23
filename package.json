@@ -22,11 +22,10 @@
   "homepage": "https://github.com/sunil-jhamnani/movie-hub-angularjs#readme",
   "dependencies": {
     "angular": "^1.6.2",
-    "angular-resource": "^1.6.2",
+    "angular-bootstrap-npm": "^0.14.3",
     "angular-route": "^1.6.2",
     "bootstrap": "^3.3.7",
     "http-server": "^0.9.0",
     "jquery": "^3.1.1",
-    "sprintf-js": "^1.0.3"
   }
 }

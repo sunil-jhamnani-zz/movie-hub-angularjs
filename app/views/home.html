@@ -5,13 +5,20 @@
 
         <label class="sr-only" for="inlineFormInputGroup">Username</label>
         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-            <input type="number" class="form-control" id="inlineFormInputGroup" placeholder="Year" ng-model="movie.year">
+            <input type="number" class="form-control" id="inlineFormInputGroup" placeholder="Year"
+                   ng-model="movie.year">
         </div>
 
         <button type="submit" class="btn btn-primary" ng-click="getDetails()">Submit</button>
         <button type="submit" class="btn btn-primary" ng-click="reset()">Reset</button>
     </form>
-    <div class="container-fluid">
-
+    <div id="search-by-title-progress" class="hide progress progress-info progress-striped active">
+        <div class="progress-bar" style="width: 100%;">
+        </div>
     </div>
+    <div class="list-group" id="movies-list">
+        <movielist class="movie" ng-repeat="movie in movies" title="movie.Title" year="movie.Year" imdbid="movie.imdbID"></movielist>
+    </div>
+    <ul uib-pagination total-items="results.total" ng-model="currentPage" max-size="5" ng-change="pageChanged()" class="pagination-sm"
+        boundary-links="true" ng-show=" movies ? true : false" style="float: right"></ul>
 </div>

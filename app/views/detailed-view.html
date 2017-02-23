@@ -1,0 +1,21 @@
+<div class="modal-header">
+    <h3 class="modal-title col-sm-9" id="modal-title" style="color:black">{{movieDetail.Title}}</h3>
+    <button type="button" class="close " aria-label="Close" style="font-size: 35px;" ng-click="close()"><span
+            aria-hidden="true">&times;</span></button>
+</div>
+<div class="modal-body" id="modal-body" style="overflow: hidden;">
+    <div class="row">
+        <div class="col-sm-5">
+            <img ng-src="{{movieDetail.Poster}}" alt="">
+        </div>
+        <div class="col-sm-6">
+            <h4>Released: {{movieDetail.Released}}</h4>
+            <small>{{movieDetail.Runtime}} | {{movieDetail.Genre}}</small>
+            <p><b>Plot:</b> {{movieDetail.Plot}}</p>
+            <p><b>Director:</b> {{movieDetail.Director}}</p>
+            <p><b>Actors:</b> {{movieDetail.Actors}}</p>
+            <p><b>IMDB Rating:</b> {{movieDetail.imdbRating}}</p>
+            <button class="btn btn-primary">Set as favourite</button>
+        </div>
+    </div>
+</div>
