@@ -16,6 +16,8 @@
         'ngRoute',
         'sprintf',
         'ui.bootstrap',
+        'ngStorage',
+        'toaster',
 
         //our modules
         'ngOMDBSearchCore'
@@ -41,12 +43,21 @@
                 templateUrl: "views/home.html",
                 controller: "HomeController"
             })
+            .when('/favorite', {
+                templateUrl:"views/favorite.html",
+                controller:"FavoriteController"
+            })
+            .when('/recent', {
+                templateUrl:"views/recently-viewed.html",
+                controller:"RecentViewedController"
+            })
             .otherwise({
                 redirectTo: '/'
             });
 
         OmdbHttpFactoryProvider.config({
-            baseUrl: Configuration.API_URL
+            baseUrl: Configuration.API_URL,
+            maxFavoriteLength: Configuration.MAX_FAVORITE_LENGTH
         })
     }
     var app = angular.module('ngOMDBSearch'),

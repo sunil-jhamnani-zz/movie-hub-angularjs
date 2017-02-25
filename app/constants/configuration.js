@@ -4,6 +4,7 @@
 (function () {
     var app = angular.module('ngOMDBSearch');
     app.constant('Configuration', {
-        API_URL: "http://www.omdbapi.com/?"
+        API_URL: "http://www.omdbapi.com/?",
+        MAX_FAVORITE_LENGTH: 10
     })
 }());

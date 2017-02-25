@@ -5,6 +5,7 @@
     <title>Kartrocket</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../node_modules/angularjs-toaster/toaster.min.css">
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../node_modules/angular/angular.min.js"></script>
@@ -13,17 +14,24 @@
     <script src="../node_modules/sprintf-js/dist/sprintf.min.js"></script>
     <script src="../node_modules/sprintf-js/dist/angular-sprintf.min.js"></script>
     <script src="../node_modules/angular-bootstrap-npm/dist/angular-bootstrap-tpls.min.js"></script>
+    <script src="../node_modules/ngstorage/ngStorage.min.js"></script>
+    <script src="../node_modules/angularjs-toaster/toaster.min.js"></script>
     <script src="app.js"></script>
     <script src="constants/configuration.js"></script>
+    <script src="controllers/MainController.js"></script>
     <script src="controllers/HomeController.js"></script>
     <script src="controllers/DetailedViewController.js"></script>
+    <script src="controllers/FavoriteController.js"></script>
+    <script src="controllers/RecentViewedController.js"></script>
     <script src="components/movieList.js"></script>
+    <script src="services/FavoriteService.js"></script>
+    <script src="services/RecentViewed.js"></script>
 
     <!--module: ngOMDBSearchCore-->
     <script src="modules/ngOMDBSearchCore/ngOMDBSearchCore.js"></script>
     <script src="modules/ngOMDBSearchCore/factories/OmdbHttpFactory.js"></script>
 </head>
-<body ng-app="ngOMDBSearch">
+<body ng-app="ngOMDBSearch" ng-controller="MainController">
     <header>
         <div class="navbar navbar-default">
             <div class="container">
@@ -34,9 +42,9 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <nav class="navbar navbar-inverse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home<span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">Favorites</a></li>
-                    <li><a href="#">Recently viewed</a></li>
+                    <li><a href ng-click="go('/home')">Home<span class="sr-only">(current)</span></a></li>
+                    <li><a href ng-click="go('/favorite')">Favorites</a></li>
+                    <li><a href ng-click="go('/recent')">Recently viewed</a></li>
                 </ul>
                 </nav>
             </div><!-- /.navbar-collapse -->

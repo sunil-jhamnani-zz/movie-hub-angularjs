@@ -1,3 +1,11 @@
 #movies-list {
     margin-top: 20px;
 }
+
+#name.ng-invalid.ng-touched {
+    border: 2px solid red;
+}
+
+.grey {
+    background-color: lightgray !important;
+}

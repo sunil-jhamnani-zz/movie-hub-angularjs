@@ -4,44 +4,41 @@
 (function () {
     'use strict';
 
-    function HomeController($scope, $rootScope, $filter, $http, Configuration, OmdbHttpFactory) {
-        $scope.results = OmdbHttpFactory.results;
-        $scope.movie = {
-            name: "",
-            year:"",
-            page:1
-        };
-        $scope.getDetails = function () {
-            if($scope.movie.name) {
-                $scope.movie.page = 1
-                prepareList();
-            }
-        };
+    function HomeController($scope, OmdbHttpFactory, toaster) {
 
-        $scope.pageChanged = function () {
-            $scope.movie.page = $scope.currentPage;
-            prepareList();
-        };
-
-        $scope.reset = function () {
-            $scope.movies = $scope.results = $scope.movie = null
-        }
-
-        function prepareList() {
-            OmdbHttpFactory.getSearchedMovieList($scope.movie).then(function (movies) {
-                $scope.movies = movies
+        function onLoad() {
+            OmdbHttpFactory.getSearchedMovieList().then(function (movies) {
+                $scope.movies = movies;
+                $scope.movie = OmdbHttpFactory.results.searchFilters;
+                $scope.totalPages = OmdbHttpFactory.results.total;
+            }, function (error) {
+                toaster.pop('error', error.Error + " Error while calling api");
             });
         }
+
+        $scope.reset = function () {
+            $scope.movies = $scope.movie = $scope.totalPages = null;
+            OmdbHttpFactory.clearFilters()
+        };
+
+        $scope.prepareList = function () {
+            OmdbHttpFactory.getSearchedMovieList($scope.movie).then(function (movies) {
+                $scope.movies = movies
+            },
+            function (error) {
+                toaster.pop('error', error.Error + " Error while calling api");
+            });
+            $scope.totalPages = OmdbHttpFactory.results.total;
+        };
+
+        onLoad();
     }
 
     var app = angular.module("ngOMDBSearch"),
         requires = [
             '$scope',
-            '$rootScope',
-            '$filter',
-            '$http',
-            'Configuration',
             'ngOMDBSearchCore.factories.OmdbHttpFactory',
+            'toaster',
             HomeController
         ];
     app.controller('HomeController', requires);

@@ -1,7 +1,7 @@
-<a href ng-click='$ctrl.getMovieDetails($ctrl.imdbid)'
-   class='list-group-item list-group-item-action flex-column align-items-start'>
+<a href ng-click='$ctrl.getMovieDetails($ctrl.movie)' ng-class="{grey: $ctrl.index%2 == 0}"
+   class='list-group-item'>
     <div class='d-flex w-100 justify-content-between'>
-        <h5 class='mb-1'>{{ $ctrl.title }}</h5>
-        <small>{{ $ctrl.year }}</small>
+        <h5 class='mb-1'>{{ $ctrl.movie.Title }}</h5>
+        <small>{{ $ctrl.movie.Year }}</small>
     </div>
 </a>

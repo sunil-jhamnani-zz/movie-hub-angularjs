@@ -1,0 +1,7 @@
+<div class="container main-body-content">
+    <div class="list-group" id="movies-list">
+        <movielist class="movie" ng-repeat="movie in movies | orderBy: movie.Year" movie="movie" index="$index"></movielist>
+    </div>
+    <ul uib-pagination total-items="results.total" ng-model="currentPage" max-size="5" ng-change="pageChanged()" class="pagination-sm"
+        boundary-links="true" ng-show="results.total > 10 ? true : false" style="float: right"></ul>
+</div>

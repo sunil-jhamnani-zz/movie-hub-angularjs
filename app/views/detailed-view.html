@@ -15,7 +15,7 @@
             <p><b>Director:</b> {{movieDetail.Director}}</p>
             <p><b>Actors:</b> {{movieDetail.Actors}}</p>
             <p><b>IMDB Rating:</b> {{movieDetail.imdbRating}}</p>
-            <button class="btn btn-primary">Set as favourite</button>
+            <button class="btn btn-primary" ng-click="addToFavorite()" ng-disabled="isFavorite">{{ isFavorite ? "Favorite" : "Set as favourite"}}</button>
         </div>
     </div>
 </div>

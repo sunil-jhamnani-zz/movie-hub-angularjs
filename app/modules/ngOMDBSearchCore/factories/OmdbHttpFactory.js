@@ -9,10 +9,10 @@
             angular.extend(self, config);
         };
 
-        function OmdbHttpFactory($http, $log, $q) {
+        function OmdbHttpFactory($http, $log, $q, $localStorage) {
 
             if (!self.baseUrl) {
-                $log.debug('OAuth key is not provided.');
+                $log.debug("Base Url is not provided in the angular constants");
             }
 
             var results = {
@@ -31,21 +31,23 @@
             }
 
             function getSearchedMovieList(searchFilters) {
-                var year = searchFilters.year ? searchFilters.year : "",
-                    page = searchFilters.page ? searchFilters.page : "";
-
                 var deferred = $q.defer();
+                searchFilters = searchFilters || $localStorage.savedSearchFilters;
+                if (!searchFilters) {
+                    return deferred.promise;
+                }
+                searchFilters.year = searchFilters.year ? searchFilters.year : "";
+                searchFilters.page = searchFilters.page ? searchFilters.page : 1;
+                $localStorage.savedSearchFilters = searchFilters;
 
-                $http.get(urlFormattingForList({
-                    name: searchFilters.name,
-                    year: year,
-                    page: page
-                })).then(function (response) {
-                    if (response.data.Response) {
+                $http.get(urlFormattingForList(searchFilters)).then(function (response) {
+                    if (response.data.Response == "True") {
                         var entities = response.data["Search"].map(function (entity) {
+                            entity["isCompleteObject"] = false;
                             return new OmdbEntity(entity)
                         });
                         results.total = response.data["totalResults"];
+                        results.searchFilters = searchFilters
                         deferred.resolve(entities)
                     }
                     else {
@@ -61,8 +63,14 @@
             function getDetails(id) {
                 var deferred = $q.defer();
                 $http.get(urlFormattingForEntity(id)).then(function (response) {
-                    var entity = new OmdbEntity(response.data);
-                    deferred.resolve(entity)
+                    if (response.data.Response == "True"){
+                        var entity = new OmdbEntity(response.data);
+                        entity["isCompleteObject"] = true;
+                        deferred.resolve(entity)
+                    }
+                    else {
+                        deferred.reject(response.data)
+                    }
                 }, function (error) {
                     deferred.reject(error)
                 });
@@ -70,9 +78,16 @@
 
             }
 
+            function clearFilters() {
+                delete $localStorage.savedSearchFilters;
+            }
+
             return {
+                OmdbEntity: OmdbEntity,
+                maxFavoriteLength: self.maxFavoriteLength,
                 getSearchedMovieList: getSearchedMovieList,
                 getDetailsById: getDetails,
+                clearFilters: clearFilters,
                 results: results
             }
         }
@@ -81,6 +96,7 @@
             '$http',
             '$log',
             '$q',
+            '$localStorage',
             OmdbHttpFactory
         ];
     }
