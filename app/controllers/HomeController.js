@@ -39,12 +39,12 @@
          */
         $scope.prepareList = function () {
             OmdbHttpFactory.getSearchedMovieList($scope.movie).then(function (movies) {
-                $scope.movies = movies
+                $scope.movies = movies;
+                $scope.totalPages = OmdbHttpFactory.results.total;
             },
             function (error) {
                 toaster.pop('error', "Error while calling api. Please check the search filters");
             });
-            $scope.totalPages = OmdbHttpFactory.results.total;
         };
 
         onLoad();
