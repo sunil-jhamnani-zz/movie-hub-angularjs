@@ -9,6 +9,15 @@
             angular.extend(self, config);
         };
 
+        /**
+         * Service function. It exposes api to be used to get the movie details.
+         * @param $http
+         * @param $log
+         * @param $q
+         * @param $localStorage
+         * @returns {{OmdbEntity: OmdbEntity, maxFavoriteLength: *, getSearchedMovieList: getSearchedMovieList, getDetailsById: getDetails, clearFilters: clearFilters, results: {total: number}}}
+         * @constructor
+         */
         function OmdbHttpFactory($http, $log, $q, $localStorage) {
 
             if (!self.baseUrl) {
@@ -19,17 +28,38 @@
                 total: 0
             };
 
-            function urlFormattingForList(parameters) {
+            /**
+             * Build query used to fetch list of movies based on query parameters
+             * @param parameters
+             * @returns {string}
+             */
+            function buildQueryForList(parameters) {
                 return self.baseUrl + "s=" + parameters.name + "&y=" + parameters.year + "&page=" + parameters.page + "&type=movie&r=json"
             }
 
-            function urlFormattingForEntity(id) {
+            /**
+             * Build query used to fetch details of selected movie based on imdb ID
+             * @param id
+             * @returns {string}
+             */
+            function buildQueryForEntity(id) {
                 return self.baseUrl + "i=" + id + "&plot=full&r=json";
             }
+
+            /**
+             * Represents a movie object
+             * @param obj
+             * @constructor
+             */
             function OmdbEntity(obj) {
                 angular.extend(this, obj);
             }
 
+            /**
+             * Send GET request to get list of movies. Returns promise object
+             * @param searchFilters
+             * @returns {*}
+             */
             function getSearchedMovieList(searchFilters) {
                 var deferred = $q.defer();
                 searchFilters = searchFilters || $localStorage.savedSearchFilters;
@@ -40,7 +70,7 @@
                 searchFilters.page = searchFilters.page ? searchFilters.page : 1;
                 $localStorage.savedSearchFilters = searchFilters;
 
-                $http.get(urlFormattingForList(searchFilters)).then(function (response) {
+                $http.get(buildQueryForList(searchFilters)).then(function (response) {
                     if (response.data.Response == "True") {
                         var entities = response.data["Search"].map(function (entity) {
                             entity["isCompleteObject"] = false;
@@ -51,33 +81,45 @@
                         deferred.resolve(entities)
                     }
                     else {
+                        $log.debug(response.data);
                         deferred.reject(response.data)
                     }
                 }, function (error) {
+                    $log.debug(error);
                     deferred.reject(error)
                 });
 
                 return deferred.promise;
             }
 
+            /**
+             * Send GET request to get details of selected movie.
+             * @param id
+             * @returns {*}
+             */
             function getDetails(id) {
                 var deferred = $q.defer();
-                $http.get(urlFormattingForEntity(id)).then(function (response) {
-                    if (response.data.Response == "True"){
+                $http.get(buildQueryForEntity(id)).then(function (response) {
+                    if (response.data.Response == "True") {
                         var entity = new OmdbEntity(response.data);
                         entity["isCompleteObject"] = true;
                         deferred.resolve(entity)
                     }
                     else {
+                        $log.debug(response.data);
                         deferred.reject(response.data)
                     }
                 }, function (error) {
+                    $log.debug(error);
                     deferred.reject(error)
                 });
                 return deferred.promise;
 
             }
 
+            /**
+             * Clear all the filters stored in local storage
+             */
             function clearFilters() {
                 delete $localStorage.savedSearchFilters;
             }

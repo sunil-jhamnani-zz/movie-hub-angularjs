@@ -4,6 +4,12 @@
 
 (function () {
 
+    /**
+     * RecentViewedController constructor function. Responsible for view logic of recently-viewed.html
+     * @param $scope
+     * @param RecentViewed
+     * @constructor
+     */
     function RecentViewedController($scope, RecentViewed) {
         $scope.movies = RecentViewed.getRecentlyViewedMovies();
     }

@@ -3,6 +3,12 @@
  */
 (function () {
 
+    /**
+     * FavoriteController constructor function. Responsible for view logic of favorite.html
+     * @param $scope
+     * @param FavoriteService
+     * @constructor
+     */
     function FavoriteController($scope, FavoriteService) {
         $scope.movies = FavoriteService.getFavoriteMovies();
     }

@@ -3,7 +3,18 @@
  */
 (function () {
 
+    /**
+     * MainController constructor function. Work as parent controller
+     * @param $rootScope
+     * @param $location
+     * @constructor
+     */
     function MainController($rootScope, $location) {
+
+        /**
+         * Redirect page to the specified route
+         * @param path
+         */
         $rootScope.go = function(path){
             $location.url(path);
         };
