@@ -14,7 +14,6 @@
     angular.module('ngOMDBSearch', [
         //3rd party modules
         'ngRoute',
-        'sprintf',
         'ui.bootstrap',
         'ngStorage',
         'toaster',

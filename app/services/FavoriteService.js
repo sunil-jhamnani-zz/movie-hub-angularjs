@@ -20,9 +20,9 @@
         }
 
         this.getFavoriteMovies = function () {
-            return Object.keys(favoriteMovies).map(function (key) {
+            return sort(Object.keys(favoriteMovies).map(function (key) {
                 return favoriteMovies[key];
-            })
+            }));
         };
 
         this.isFavoriteMovie = function (id) {
@@ -34,7 +34,7 @@
                 return;
             }
             if (Object.keys(favoriteMovies).length == OmdbHttpFactory.maxFavoriteLength) {
-                deleteFavoriteMovies(favoriteMovies[0]);
+                deleteFavoriteMovies(this.getFavoriteMovies[0]);
             }
             $localStorage.movies[movie.imdbID] = movie;
             objOmdbEntity = new OmdbHttpFactory.OmdbEntity(movie);
@@ -43,14 +43,16 @@
         };
 
         function deleteFavoriteMovies(movie) {
-            var key = movie.imdbid;
+            var key = movie.imdbID;
             delete $localStorage.movies[key];
             return delete favoriteMovies[key];
         }
 
-        this.addToRecent = function (movie) {
-
-        };
+        function sort(arrToSort) {
+            return arrToSort.sort(function (obj1, obj2) {
+                return obj1.Year- obj2.Year
+            });
+        }
 
         onInstantiate();
     }

@@ -5,9 +5,7 @@
 (function () {
 
     function RecentViewedController($scope, RecentViewed) {
-        $scope.movies = RecentViewed.getRecentlyViewedMovies().sort(function (obj1, obj2) {
-            return obj1.Year- obj2.Year
-        });
+        $scope.movies = RecentViewed.getRecentlyViewedMovies();
     }
 
     var app = angular.module("ngOMDBSearch"),
